@@ -1,0 +1,20 @@
+﻿2018-01-15 新建Asp.net core 2.0 MVC 项目(Web)
+	1、项目发布后运行
+		1.1 开始运行 cmd ,cd 进入到发布后的目录（必需要进入到站点目录否则所有静态资源路径会不对）；
+		1.2 通过dotnet 运行网站默认端口为 5000， 命令：dotnet Web.dll  
+		1.3 配置站点发布后 Views 文件不被打包,在项目上点右键“编辑 Web.csproj”
+			在PropertyGroup 节点增加 <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+			缺点每次发布需先关闭整个 Cmd 窗口，否则会有缓存文件无法发布;
+		1.4 配置站点绑定指定端口或域名，打开 Program.cs
+
+			 public static IWebHost BuildWebHost(string[] args) =>
+                            WebHost.CreateDefaultBuilder(args)
+                            .UseUrls("http://localhost:7002;http://*:7003")		//指定端口
+                            .UseKestrel()   //应用为服务器使用的web主机。
+                            .UseContentRoot(Directory.GetCurrentDirectory()) 
+                            .UseIISIntegration()
+                            .UseStartup<Startup>()
+                            .Build();
+
+	
+				
