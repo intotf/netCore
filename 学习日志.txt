@@ -17,4 +17,6 @@
                             .Build();
 
 	
+2018-06-25 Microsoft.AspNetCore.All
+	该库目前 Web 是 2.0 版本，如果更新到 2.1 会抛异常找不到库，而 2.1 是 App 的库；
 				
