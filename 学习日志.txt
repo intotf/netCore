@@ -21,3 +21,11 @@
 	该库目前 Web 是 2.0 版本，如果更新到 2.1 会抛异常找不到库，而 2.1 是 App 的库；
  	记的更新 VS 2017 工具，否则会出现一些异想不到的问题。
 				
+
+2018-06-26 对Mvc 中 View 打包和不打包的配置
+        编辑项目 .csproj 文件，增加下面语句
+	<PropertyGroup>
+    		<TargetFramework>netcoreapp2.1</TargetFramework>
+    		<!--Views 是否进行打包-->
+    		<MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+  	</PropertyGroup>
