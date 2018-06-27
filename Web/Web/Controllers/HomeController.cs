@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Exceptionless;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 using Web.Server;
@@ -13,6 +14,17 @@ namespace Web.Controllers
     {
         public IActionResult Index()
         {
+            
+
+            try
+            {
+                throw new ApplicationException(Guid.NewGuid().ToString());
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+            }
+
             var list = new SqliteContext("bizBd.db").ManageUser.Where(item => true);
 
             return View();
