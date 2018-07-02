@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Exceptionless;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Web.Models;
 using Web.Server;
 
@@ -12,9 +16,23 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        NpgsSqlContext _npgsSqlContext { get; set; }
+        SqliteContext _sqliteContext;
+
+        public HomeController(NpgsSqlContext npgsSqlContext, SqliteContext sqliteContext)
         {
-            
+            this._npgsSqlContext = npgsSqlContext;
+            this._sqliteContext = sqliteContext;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+
+            var npgsData = await _npgsSqlContext.ManageUser.Where(item => true).ToListAsync();
+            var sqLiteData = await _sqliteContext.ManageUser.Where(item => true).ToListAsync(); ;
+
+            //var db = this.HttpContext.RequestServices.GetService<NpgsSqlContext>();
+            //var lists = db.User.Where(item => true);
 
             try
             {
@@ -27,7 +45,7 @@ namespace Web.Controllers
 
             var list = new SqliteContext("bizBd.db").ManageUser.Where(item => true);
 
-            return View();
+            return View(sqLiteData);
         }
 
         public IActionResult About()

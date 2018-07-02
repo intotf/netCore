@@ -7,6 +7,9 @@ using Web.Model;
 
 namespace Web.Server
 {
+    /// <summary>
+    /// SqLite 数据库上下文
+    /// </summary>
     public class SqliteContext : DbContext
     {
         IConfiguration Configuration;
@@ -35,7 +38,6 @@ namespace Web.Server
         /// 管理员信息
         /// </summary>
         public DbSet<ManageUser> ManageUser { get; set; }
-
 
         /// <summary>
         /// 绑定连接数据库

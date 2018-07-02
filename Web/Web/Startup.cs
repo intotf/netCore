@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Web.Filter;
+using Web.Server;
 
 namespace Web
 {
@@ -34,11 +35,25 @@ namespace Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //获取数据库连接字符串
+            var npgsSqlConnectionString = Configuration.GetConnectionString("NpgsSqlContext");
+            //添加数据上下文
+            services.AddDbContext<NpgsSqlContext>(options =>
+                options.UseNpgsql(npgsSqlConnectionString)
+            );
+
+            //获取数据库连接字符串
+            var sqLiteConnectionString = Configuration.GetConnectionString("SqliteContext");
+            services.AddDbContext<SqliteContext>(options =>
+                options.UseSqlite(sqLiteConnectionString)
+            );
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc(options =>
             {
                 options.Filters.Add<HttpGlobalExceptionFilter>();
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,8 +81,24 @@ namespace Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                  name: "areasdefault",
+                  template: "{area:exists}/{controller=default}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                  name: "areasid",
+                  template: "{area:exists}/{sid}/{controller=default}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                    name: "home",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }
