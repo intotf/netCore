@@ -29,3 +29,74 @@
     		<!--Views 是否进行打包-->
     		<MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   	</PropertyGroup>
+
+2018-07-02 数据库连接问题
+	数据库连接字符串修改配置文件： appsettings.json
+	增加多个库连接字符串
+	"ConnectionStrings": {
+    		"SqliteContext": "Data Source=bizBd.db;",
+    		"NpgsSqlContext": "User ID=dev;Password=123456;Host=10.0.1.112;Port=5432;Database=test;Pooling=true;",
+    		"SqlConnection": "server=.;Database=Test;uid=sa;pwd=123456"
+  	},
+
+
+	方法一：构造函数注入方式
+		1、程序入口文件修改 Startup.cs
+			ConfigureServices 方法中 注册数据库连接上下文：
+
+			//获取数据库连接字符串
+            		var npgsSqlConnectionString = Configuration.GetConnectionString("NpgsSqlContext");
+            		//添加数据上下文
+            		services.AddDbContext<NpgsSqlContext>(options =>
+                		options.UseNpgsql(npgsSqlConnectionString)
+            		);
+
+            		//获取数据库连接字符串
+            		var sqLiteConnectionString = Configuration.GetConnectionString("SqliteContext");
+            			services.AddDbContext<SqliteContext>(options =>
+                		options.UseSqlite(sqLiteConnectionString)
+           	 	);
+
+
+		2、控制器中构造函数注入
+			public class HomeController : Controller
+    			{
+        			NpgsSqlContext _npgsSqlContext;
+        			SqliteContext _sqliteContext;
+        			public HomeController(NpgsSqlContext npgsSqlContext, SqliteContext sqliteContext)
+        			{
+           			 	this._npgsSqlContext = npgsSqlContext;
+            				this._sqliteContext = sqliteContext;
+        			}
+
+        			public IActionResult Index()
+        			{	
+            				var npgsData = _npgsSqlContext.User.Where(item => true);
+					var sqLiteData = _sqliteContext.ManageUser.Where(item => true);
+				}
+			}
+	方法二：通过Http 请求上下文获取Service
+		1、注册数据库连接上下文 见（方法一：1）
+		2、获取 Http 请求上下文中数据库连接
+			var npgsDb = this.HttpContext.RequestServices.GetService<NpgsSqlContext>();
+			var sqliteDb = this.HttpContext.RequestServices.GetService<SqliteContext>();
+			var npgsData = npgsDb.User.Where(item => true);	//读取 npgs 数据
+			var sqLiteData = sqliteDb.ManageUser.Where(item => true);	//读取 SqLite 数据
+	
+	方法三：通过 new 实例化进行连接 (不推荐)
+		1、在构造函数，增加一个 带 string 参数的构造函数
+			传入 数据库连接字符串，在获取  OnConfiguring 进行注册
+			private string _context;
+        		public SqlContext(string context)
+        		{
+            			this._context = context;
+        		}
+			protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        		{
+            			optionsBuilder.UseNpgsql(this._context);
+        		}
+			使用方法：
+				var db = new SqlContext("User ID=dev;Password=123456;Host=10.0.1.112;Port=5432;Database=test;Pooling=true;");
+				var npgsData = db.User.Where(item => true);	
+
+
