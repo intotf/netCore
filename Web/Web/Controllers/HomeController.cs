@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Exceptionless;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +28,19 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //给当前游客配置一个默认Id,有效期 30秒
+            if (this.HttpContext.Request.Cookies["VisitorsId"] == null)
+            {
+                var options = new CookieOptions()
+                {
+                    Expires = DateTimeOffset.Now.AddSeconds(30)
+                };
+                var newId = Guid.NewGuid().ToString().Replace("-", "");
+                this.HttpContext.Response.Cookies.Append("VisitorsId", newId, options);
+            }
 
+
+            ///数据库读取
             var npgsData = await _npgsSqlContext.ManageUser.Where(item => true).ToListAsync();
             var sqLiteData = await _sqliteContext.ManageUser.Where(item => true).ToListAsync(); ;
 
