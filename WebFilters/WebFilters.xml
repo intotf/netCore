@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebFilters</name>
+    </assembly>
+    <members>
+        <member name="T:WebFilters.Filters.GlobalActonFilter">
+            <summary>
+            Acion过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalActonFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            Acion 执行后拦截
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalActonFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Acion 执行前拦截
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalAsyncActonFilter">
+            <summary>
+            异步 Action 过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncActonFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            执行异步Action 过滤器
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncActonFilter.OnExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            执行后
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalAsyncAuthorizationFilter">
+            <summary>
+            异步权限过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncAuthorizationFilter.OnAuthorizationAsync(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            执行异步Action 过滤器
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalAsyncExceptionFilter">
+            <summary>
+            异步异常全局过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncExceptionFilter.OnExceptionAsync(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常异步处理
+            </summary>
+            <param name="context">异常上下文</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalAsyncResourceFilter">
+            <summary>
+            异步资源加载过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncResourceFilter.OnResourceExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResourceExecutionDelegate)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncResourceFilter.OnExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <summary>
+            执行后
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalAsyncResultFilter">
+            <summary>
+            异步 结果过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncResultFilter.OnResultExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate)">
+            <summary>
+            动作结果执行后
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAsyncResultFilter.OnExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            执行后
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalAuthorizationFilter">
+            <summary>
+            权限过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalAuthorizationFilter.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            有请求时
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalExceptionFilter">
+            <summary>
+            异常全局过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常处理
+            </summary>
+            <param name="context">异常上下文</param>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalResourceFilter">
+            <summary>
+            资源过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalResourceFilter.OnResourceExecuted(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
+            <summary>
+            获取资源后拦截
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalResourceFilter.OnResourceExecuting(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <summary>
+            获取资源前拦截
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:WebFilters.Filters.GlobalResultFilter">
+            <summary>
+            结果过滤器
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalResultFilter.OnResultExecuted(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext)">
+            <summary>
+            动作结果执行后
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:WebFilters.Filters.GlobalResultFilter.OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            动作结果执行前
+            </summary>
+            <param name="context"></param>
+        </member>
+    </members>
+</doc>
