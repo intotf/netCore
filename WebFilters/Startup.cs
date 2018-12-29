@@ -46,18 +46,20 @@ namespace WebFilters
                     Version = "v1",
                     Title = "Filters 过滤器测试Api",
                     Description = @"1、Authorization Filter
-　　                                2、Resource Filter
-　　                                3、Acton Filter
-　　                                4、Exception Filter
-　　                                5、Result Filter"
+　　                      2、Resource Filter
+　　                      3、Acton Filter
+　　                      4、Exception Filter
+　　                      5、Result Filter"
                 });
                 c.IncludeXmlComments(this.GetType().Assembly.Location.Replace(".dll", ".xml"), true);  //是需要设置 XML 注释文件的完整路径
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            //添加 Log4net 日志输出
+            loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -4,6 +4,49 @@
         <name>WebFilters</name>
     </assembly>
     <members>
+        <member name="M:WebFilters.Controllers.DemoController.GetId(System.String)">
+            <summary>
+            Get 请求
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Controllers.DemoController.PostId(System.Int32)">
+            <summary>
+            Post请求
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Controllers.DemoController.PostFromBody(WebFilters.Controllers.DemoModel)">
+            <summary>
+            以 FromBody 提交
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Controllers.DemoController.PostFromForm(WebFilters.Controllers.DemoModel)">
+            <summary>
+            以 FromForm 提交
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.Controllers.DemoModel">
+            <summary>
+            测试模型
+            </summary>
+        </member>
+        <member name="P:WebFilters.Controllers.DemoModel.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:WebFilters.Controllers.DemoModel.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
         <member name="T:WebFilters.Filters.GlobalActonFilter">
             <summary>
             Acion过滤器
@@ -51,7 +94,6 @@
             执行异步Action 过滤器
             </summary>
             <param name="context"></param>
-            <param name="next"></param>
             <returns></returns>
         </member>
         <member name="T:WebFilters.Filters.GlobalAsyncExceptionFilter">
