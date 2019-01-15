@@ -47,6 +47,38 @@
             标题
             </summary>
         </member>
+        <member name="T:WebFilters.Filters.ApiFilterAttribute">
+            <summary>
+            Api 过滤器,记录请求上下文及响应上下文
+            </summary>
+        </member>
+        <member name="M:WebFilters.Filters.ApiFilterAttribute.OnResourceExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResourceExecutionDelegate)">
+            <summary>
+            请求Api 资源时
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Filters.ApiFilterAttribute.OnResourceExecutedAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <summary>
+            记录Http请求上下文
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebFilters.Filters.ApiFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Action 执行前
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:WebFilters.Filters.ApiFilterAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            Action 执行后
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="T:WebFilters.Filters.GlobalActonFilter">
             <summary>
             Acion过滤器
@@ -203,6 +235,197 @@
             动作结果执行前
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="T:WebFilters.HttpContextMiddleware">
+            <summary>
+            Http 请求中间件
+            </summary>
+        </member>
+        <member name="F:WebFilters.HttpContextMiddleware.next">
+            <summary>
+            处理HTTP请求
+            </summary>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            构造 Http 请求中间件
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行响应流指向新对象
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.HttpContextMiddleware.ReadableResponseBody">
+            <summary>
+            可读的Response Body
+            </summary>
+        </member>
+        <member name="F:WebFilters.HttpContextMiddleware.ReadableResponseBody.body">
+            <summary>
+            流内容
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMiddleware.ReadableResponseBody.IsRead">
+            <summary>
+            获取或设置是否可读
+            </summary>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.ReadableResponseBody.#ctor(System.IO.Stream)">
+            <summary>
+            构造自定义流
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.ReadableResponseBody.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            写入响应流
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.ReadableResponseBody.Write(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            写入响应流
+            </summary>
+            <param name="source"></param>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.ReadableResponseBody.Flush">
+            <summary>
+            刷新响应流
+            </summary>
+        </member>
+        <member name="M:WebFilters.HttpContextMiddleware.ReadableResponseBody.ReadAsStringAsync">
+            <summary>
+            读取响应内容
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.IReadableBody">
+            <summary>
+            定义可读Body的接口
+            </summary>
+        </member>
+        <member name="P:WebFilters.IReadableBody.IsRead">
+            <summary>
+            获取或设置是否可读
+            </summary>
+        </member>
+        <member name="M:WebFilters.IReadableBody.ReadAsStringAsync">
+            <summary>
+            读取文本内容
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebFilters.LogHelper">
+            <summary>
+            日志帮助类
+            </summary>
+        </member>
+        <member name="F:WebFilters.LogHelper.logger">
+            <summary>
+            日志提供者
+            </summary>
+        </member>
+        <member name="M:WebFilters.LogHelper.#cctor">
+            <summary>
+            静太方法构造函数
+            </summary>
+        </member>
+        <member name="M:WebFilters.LogHelper.Info(System.Object)">
+            <summary>
+            打印提示
+            </summary>
+            <param name="message">日志内容</param>
+        </member>
+        <member name="M:WebFilters.LogHelper.Error(System.Object)">
+            <summary>
+            打印错误
+            </summary>
+            <param name="message">日志内容</param>
+        </member>
+        <member name="M:WebFilters.LogHelper.Error(System.Exception,System.String)">
+            <summary>
+            打印错误
+            </summary>
+            <param name="ex">异常信息</param>
+            <param name="message">日志内容</param>
+        </member>
+        <member name="M:WebFilters.LogHelper.Debug(System.Object)">
+            <summary>
+            调试信息打印
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:WebFilters.HttpContextMessage">
+            <summary>
+            Http 上下日志
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestQurey">
+            <summary>
+            请求Qurey消息
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestLocalIp">
+            <summary>
+            请求者本地ip
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestRemoteIp">
+            <summary>
+            请求者远程ip
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestMethod">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestScheme">
+            <summary>
+            请求协议标识
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestContextType">
+            <summary>
+            请求内容类型
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestBody">
+            <summary>
+            请求Body消息
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestHost">
+            <summary>
+            请求域名消息
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.RequestPath">
+            <summary>
+            请求路径消息
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.ResponseBody">
+            <summary>
+            响应内容
+            </summary>
+        </member>
+        <member name="P:WebFilters.HttpContextMessage.ResponseStatusCode">
+            <summary>
+            响应状态码
+            </summary>
+        </member>
+        <member name="M:WebFilters.HttpContextMessage.ToString">
+            <summary>
+            重写ToString 方便阅读
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

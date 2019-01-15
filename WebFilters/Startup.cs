@@ -66,6 +66,7 @@ namespace WebFilters
             }
 
             app.UseMvc();
+            app.UseMiddleware<HttpContextMiddleware>();
 
             app.UseSwagger();
             app.UseSwaggerUI(o =>

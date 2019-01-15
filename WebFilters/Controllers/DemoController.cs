@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebFilters.Filters;
 
 namespace WebFilters.Controllers
 {
+    [ApiFilter]
     [Route("api/[controller]/[Action]")]
     [ApiController]
     public class DemoController : ControllerBase
@@ -40,9 +42,9 @@ namespace WebFilters.Controllers
         /// <param name="value"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<string> PostFromBody([FromBody] DemoModel value)
+        public JsonResult PostFromBody([FromBody] DemoModel value)
         {
-            return value.Title;
+            return new JsonResult(value);
         }
 
         /// <summary>
