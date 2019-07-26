@@ -13,15 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Server", "Web.Server\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\..\Infrastructure-Team\Infrastructure\Infrastructure.csproj", "{EA0261F3-2CB8-47B9-8B5F-BBAA04B27309}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp_mqtt", "ConsoleApp_mqtt\ConsoleApp_mqtt.csproj", "{109AD52E-A966-4D1E-957D-D7588AA553A9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp_mqtt_client", "ConsoleApp_mqtt_client\ConsoleApp_mqtt_client.csproj", "{F71D6E90-4FFB-45CF-9709-C54F69C5E4C3}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tftp", "tftp", "{87759E55-E0ED-4324-9097-FBCE595D9803}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasenApiClient", "C:\Users\tangfeng\source\repos\EasenApiClient\EasenApiClient.csproj", "{AC2E1F8B-1422-468F-930C-91B15D8FD20E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFilters", "..\WebFilters\WebFilters.csproj", "{7F15052D-6D09-401A-9B83-5DBC4E9AFBA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebFilters", "..\WebFilters\WebFilters.csproj", "{7F15052D-6D09-401A-9B83-5DBC4E9AFBA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,18 +41,6 @@ Global
 		{EA0261F3-2CB8-47B9-8B5F-BBAA04B27309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA0261F3-2CB8-47B9-8B5F-BBAA04B27309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA0261F3-2CB8-47B9-8B5F-BBAA04B27309}.Release|Any CPU.Build.0 = Release|Any CPU
-		{109AD52E-A966-4D1E-957D-D7588AA553A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{109AD52E-A966-4D1E-957D-D7588AA553A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{109AD52E-A966-4D1E-957D-D7588AA553A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{109AD52E-A966-4D1E-957D-D7588AA553A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F71D6E90-4FFB-45CF-9709-C54F69C5E4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F71D6E90-4FFB-45CF-9709-C54F69C5E4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F71D6E90-4FFB-45CF-9709-C54F69C5E4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F71D6E90-4FFB-45CF-9709-C54F69C5E4C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC2E1F8B-1422-468F-930C-91B15D8FD20E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC2E1F8B-1422-468F-930C-91B15D8FD20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC2E1F8B-1422-468F-930C-91B15D8FD20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC2E1F8B-1422-468F-930C-91B15D8FD20E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F15052D-6D09-401A-9B83-5DBC4E9AFBA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F15052D-6D09-401A-9B83-5DBC4E9AFBA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F15052D-6D09-401A-9B83-5DBC4E9AFBA1}.Release|Any CPU.ActiveCfg = Release|Any CPU

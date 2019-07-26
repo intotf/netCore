@@ -17,17 +17,18 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        NpgsSqlContext _npgsSqlContext { get; set; }
         SqliteContext _sqliteContext;
 
-        public HomeController(NpgsSqlContext npgsSqlContext, SqliteContext sqliteContext)
+        public HomeController(SqliteContext sqliteContext)
         {
-            this._npgsSqlContext = npgsSqlContext;
             this._sqliteContext = sqliteContext;
         }
 
         public async Task<IActionResult> Index()
         {
+            //var _config = this.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            //var c = _config.GetSection("MemoryCollectionKey1");
+
             //给当前游客配置一个默认Id,有效期 30秒
             if (this.HttpContext.Request.Cookies["VisitorsId"] == null)
             {
@@ -39,10 +40,7 @@ namespace Web.Controllers
                 this.HttpContext.Response.Cookies.Append("VisitorsId", newId, options);
             }
 
-
-            ///数据库读取
-            var npgsData = await _npgsSqlContext.ManageUser.Where(item => true).ToListAsync();
-            var sqLiteData = await _sqliteContext.ManageUser.Where(item => true).ToListAsync(); ;
+            var sqLiteData = await _sqliteContext.ManageUser.Where(item => true).ToListAsync();
 
             //var db = this.HttpContext.RequestServices.GetService<NpgsSqlContext>();
             //var lists = db.User.Where(item => true);

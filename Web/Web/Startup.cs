@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Exceptionless;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Web.Filter;
+using Web.Model;
 using Web.Server;
 
 namespace Web
@@ -35,12 +38,14 @@ namespace Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var model = Configuration.GetSection("ManageUser").Get<ManageUser>();
+
             //获取数据库连接字符串
-            var npgsSqlConnectionString = Configuration.GetConnectionString("NpgsSqlContext");
+            //var npgsSqlConnectionString = Configuration.GetConnectionString("NpgsSqlContext");
             //添加数据上下文
-            services.AddDbContext<NpgsSqlContext>(options =>
-                options.UseNpgsql(npgsSqlConnectionString)
-            );
+            //services.AddDbContext<NpgsSqlContext>(options =>
+            //    options.UseNpgsql(npgsSqlConnectionString)
+            //);
 
             //获取数据库连接字符串
             var sqLiteConnectionString = Configuration.GetConnectionString("SqliteContext");
@@ -48,20 +53,27 @@ namespace Web
                 options.UseSqlite(sqLiteConnectionString)
             );
 
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc(options =>
             {
                 options.Filters.Add<HttpGlobalExceptionFilter>();
             });
 
+            services.AddTransient<IStartupFilter, RequestSetOptionsStartupFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<RequestSetOptionsMiddleware>();
+
             ExceptionlessClient.Default.Configuration.ApiKey = Configuration.GetSection("Exceptionless:ApiKey").Value;
             ExceptionlessClient.Default.Configuration.ServerUrl = Configuration.GetSection("Exceptionless:ServerUrl").Value;
             app.UseExceptionless();
+
+
 
             if (env.IsDevelopment())
             {
@@ -101,5 +113,49 @@ namespace Web
 
             });
         }
+    }
+
+    public class RequestSetOptionsMiddleware
+    {
+        private readonly RequestDelegate _next;
+        private IOptions<AppOptions> _injectedOptions;
+
+        public RequestSetOptionsMiddleware(
+            RequestDelegate next, IOptions<AppOptions> injectedOptions)
+        {
+            _next = next;
+            _injectedOptions = injectedOptions;
+        }
+
+        public async Task Invoke(HttpContext httpContext)
+        {
+            Console.WriteLine("RequestSetOptionsMiddleware.Invoke");
+
+            var option = httpContext.Request.Query["option"];
+
+            if (!string.IsNullOrWhiteSpace(option))
+            {
+                _injectedOptions.Value.Option = WebUtility.HtmlEncode(option);
+            }
+
+            await _next(httpContext);
+        }
+    }
+
+    public class RequestSetOptionsStartupFilter : IStartupFilter
+    {
+        public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
+        {
+            return builder =>
+            {
+                builder.UseMiddleware<RequestSetOptionsMiddleware>();
+                next(builder);
+            };
+        }
+    }
+
+    public class AppOptions
+    {
+        public string Option { get; set; }
     }
 }

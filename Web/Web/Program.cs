@@ -21,8 +21,20 @@ namespace Web
         //   WebHost.CreateDefaultBuilder(args)
         //       .UseStartup<Startup>();
 
+        public static readonly Dictionary<string, string> _dict =
+        new Dictionary<string, string>
+        {
+                {"MemoryCollectionKey1", "value1"},
+                {"MemoryCollectionKey2", "value2"}
+        };
+
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    builder.AddInMemoryCollection(_dict);
+                })
                 .UseUrls("http://localhost:6555;http://*:6555")		//指定端口
                 .UseKestrel()   //应用为服务器使用的web主机。
                 .UseContentRoot(Directory.GetCurrentDirectory())
